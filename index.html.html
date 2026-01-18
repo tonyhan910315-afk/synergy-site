@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시너지랩 | SYNERGYLAB - 공동구매 통합 솔루션</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+    <style>
+        :root {
+            --black: #050505; --dark-grey: #111111; --neon: #9DFF00; --white: #ffffff; --grey: #888;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--black); color: var(--white); overflow-x: hidden; line-height: 1.6; }
+        header { position: fixed; top: 0; width: 100%; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(5,5,5,0.8); backdrop-filter: blur(10px); }
+        .logo { font-size: 24px; font-weight: 900; color: var(--neon); text-decoration: none; letter-spacing: -1px; }
+        .nav-btns a { text-decoration: none; color: var(--white); font-weight: 700; font-size: 13px; margin-left: 15px; padding: 8px 16px; border: 1px solid var(--neon); border-radius: 5px; transition: 0.3s; }
+        .nav-btns a:hover { background: var(--neon); color: #000; }
+        .section { padding: 120px 10%; border-top: 1px solid #222; }
+        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; text-align: center; }
+        .hero h1 { font-size: clamp(35px, 7vw, 90px); font-weight: 900; line-height: 1.1; margin-bottom: 25px; letter-spacing: -3px; }
+        .hero h1 span { color: var(--neon); }
+        .hero p { font-size: clamp(18px, 2vw, 22px); color: var(--grey); margin-bottom: 45px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: var(--dark-grey); padding: 45px; border-radius: 25px; border: 1px solid #222; transition: 0.4s; }
+        .card:hover { border-color: var(--neon); transform: translateY(-10px); }
+        .card h3 { color: var(--neon); font-size: 24px; margin-bottom: 20px; font-weight: 800; }
+        .card p { color: #ccc; }
+        .experience { background: #0a0a0a; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .exp-list { list-style: none; }
+        .exp-list li { margin-bottom: 35px; }
+        .exp-list b { color: var(--neon); font-size: 22px; display: block; margin-bottom: 10px; }
+        .target-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
+        .target-card { background: #151515; padding: 60px 50px; border-radius: 30px; border: 1px solid var(--neon); }
+        .target-card h3 { font-size: 32px; margin-bottom: 25px; color: var(--neon); font-weight: 800; }
+        .target-card ul { list-style: none; }
+        .target-card ul li { margin-bottom: 18px; color: #ddd; padding-left: 30px; position: relative; font-size: 17px; }
+        .target-card ul li::before { content: "✓"; position: absolute; left: 0; color: var(--neon); font-weight: 900; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .t-card { background: #111; padding: 40px; border-radius: 20px; border: 1px solid #222; }
+        .t-tag { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 12px; background: #222; color: var(--neon); margin-bottom: 15px; }
+        .impact-hook { padding: 180px 10%; text-align: center; background: radial-gradient(circle at center, #1a2a00 0%, #050505 80%); }
+        .impact-hook h2 { font-size: clamp(40px, 8vw, 100px); font-weight: 900; background: linear-gradient(90deg, var(--neon), #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -4px; margin-bottom: 20px; }
+        .form-container { max-width: 850px; margin: 0 auto; background: var(--dark-grey); padding: 70px 50px; border-radius: 40px; border: 1px solid #222; }
+        .form-group { margin-bottom: 30px; }
+        .form-group label { display: block; margin-bottom: 12px; color: #888; font-size: 14px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 18px; background: #050505; border: 1px solid #222; border-radius: 12px; color: #fff; outline: none; }
+        .submit-btn { width: 100%; padding: 22px; background: var(--neon); color: #000; border: none; border-radius: 12px; font-size: 20px; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        .submit-btn:hover { box-shadow: 0 0 50px rgba(157, 255, 0, 0.6); transform: translateY(-5px); }
+        footer { padding: 80px 10%; border-top: 1px solid #222; color: #444; font-size: 14px; text-align: center; }
+        iframe { display: none; } /* 전송 후 페이지 리다이렉션 방지용 */
+        @media (max-width: 992px) { .experience, .target-section { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">SYNERGYLAB.</a>
+        <div class="nav-btns"><a href="#why">공구 필요성</a><a href="#benefits">파트너 혜택</a><a href="#apply">신청하기</a></div>
+    </header>
+
+    <section class="hero">
+        <h1>제조사에게는 <span>매출</span>을<br>셀러에게는 <span>기회</span>를</h1>
+        <p>시너지랩은 인사이트가 다른 실전형 공동구매 벤더사입니다.</p>
+        <a href="#apply" class="submit-btn" style="width:auto; padding: 15px 50px; text-decoration: none;">지금 바로 제안하기</a>
+    </section>
+
+    <section id="why" class="section">
+        <div style="text-align: center; margin-bottom: 80px;">
+            <h2 style="font-size: 50px; font-weight: 900;">왜 지금, <span>공동구매</span>인가?</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card"><h3>매출 돌파</h3><p>브랜딩과 판매가 동시에 일어나는 최단 경로.</p></div>
+            <div class="card"><h3>팬덤 전이</h3><p>셀러의 신뢰도가 브랜드의 신뢰로 전환됩니다.</p></div>
+            <div class="card"><h3>리스크 해소</h3><p>예측 판매를 통해 재고 부담을 최소화합니다.</p></div>
+        </div>
+    </section>
+
+    <section class="section experience">
+        <div><h2 style="font-size: 48px; font-weight: 900;">우리는 <span>진짜</span>입니다.</h2></div>
+        <ul class="exp-list">
+            <li><b>8년+ 광고 노하우</b><p>수백 개의 프로젝트 성공 데이터를 보유하고 있습니다.</p></li>
+            <li><b>자체 브랜드 운영</b><p>제조부터 판매까지 직접 해본 진짜 전문가입니다.</p></li>
+            <li><b>광고 원가 공급</b><p>실행사 기반 인프라로 파트너의 마진을 극대화합니다.</p></li>
+        </ul>
+    </section>
+
+    <section id="benefits" class="section">
+        <div class="target-section">
+            <div class="target-card"><h3>제조사 혜택</h3><ul><li>타겟 인플루언서 매칭</li><li>마케팅 소스 지원</li><li>배송/CS 통합 관리</li><li>수익 구조 최적화</li></ul></div>
+            <div class="target-card" style="border-color: #fff;"><h3 style="color:#fff">셀러 혜택</h3><ul><li>검증된 고마진 상품</li><li>콘텐츠 가이드 제공</li><li>투명한 정산 시스템</li><li>장기 파트너십 기회</li></ul></div>
+        </div>
+    </section>
+
+    <section class="impact-hook">
+        <h2>Ready to Synergize?</h2>
+        <p>당신의 비즈니스에 폭발적인 시너지를.</p>
+    </section>
+
+    <section id="apply" class="section">
+        <div class="form-container">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 32px; font-weight: 900;">파트너십 신청</h2>
+            
+            <form action="https://docs.google.com/forms/d/e/1FAIpQLSdxDqqbLR6sj3GWU_V2VEvYDBwduaMIb2T-iwiPWWLuQv_apg/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                <div class="form-group">
+                    <label>업체명 / 성함</label>
+                    <input type="text" name="entry.1497241088" placeholder="홍길동 / 시너지랩" required>
+                </div>
+                <div class="form-group">
+                    <label>연락처</label>
+                    <input type="text" name="entry.1388147310" placeholder="010-1234-5678" required>
+                </div>
+                <div class="form-group">
+                    <label>문의 내용</label>
+                    <textarea name="entry.1010375626" rows="5" placeholder="상품 정보나 SNS 링크를 남겨주세요." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">지금 바로 시너지 시작하기</button>
+            </form>
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {alert('문의가 성공적으로 접수되었습니다. 신속히 연락드리겠습니다!');}"></iframe>
+            <script type="text/javascript">var submitted=false;</script>
+            </div>
+    </section>
+
+    <footer>
+        <p><b>상호 :</b> 시너지랩 | <b>대표 :</b> 한재홍 | <b>주소 :</b> 서울시 동작구 사당로 245, 2층</p>
+        <p><b>Email :</b> official_wa@naver.com</p>
+        <p style="margin-top: 20px; opacity: 0.2;">© 2024 SYNERGYLAB. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+</body>
+</html>
